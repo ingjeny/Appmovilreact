@@ -1,50 +1,72 @@
-# Welcome to your Expo app 👋
+﻿📱 App de Finanzas Personales
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Esta es una pequeña app de finanzas personales hecha con Expo. Incluye un login simple (sin base de datos), algunas pantallas de ejemplo y un entorno listo para desarrollo o para correr en Docker.
 
-## Get started
+🚀 Cómo instalar y correr la app
+1. Instala dependencias
 
-1. Install dependencies
+En la raíz del proyecto:
 
-   ```bash
-   npm install
-   ```
+npm install
 
-2. Start the app
+2. Configura tus variables de entorno
 
-   ```bash
-   npx expo start
-   ```
+Crea un archivo .env con este contenido (o usa los valores que quieras):
 
-In the output, you'll find options to open the app in a
+EXPO_PUBLIC_LOGIN_USERNAME=demosebas@gmail.com
+EXPO_PUBLIC_LOGIN_PASSWORD=finanzas123
+EXPO_PUBLIC_LOGIN_HINT=demosebas@gmail.com / finanzas123
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+Estos datos sirven para entrar al login.
 
-## Get a fresh project
+3. Inicia la app
+npx expo start
 
-When you're ready, run:
 
-```bash
-npm run reset-project
-```
+Luego puedes abrirla desde:
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Expo Go en tu celular
 
-## Learn more
+Un emulador Android
 
-To learn more about developing your project with Expo, look at the following resources:
+Un simulador de iOS
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+O desde el navegador
 
-## Join the community
+🔐 Sobre el login
 
-Join our community of developers creating universal apps.
+El login no usa base de datos:
+solo verifica usuario y contraseña con las variables del .env.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Si son correctos, guarda la sesión en el dispositivo.
+Para cerrar sesión, ve a Settings → Cerrar sesión.
+
+🐳 Correr la app con Docker 
+
+Si prefieres usar Docker:
+
+docker build -t gastosapp .
+docker run --rm -it \
+  -p 19000:19000 \
+  -p 19001:19001 \
+  -p 19002:19002 \
+  -p 8081:8081 \
+  gastosapp
+
+
+Esto levanta el entorno de Expo dentro de un contenedor.
+
+¿Qué es esta app?
+
+Una base sencilla para una app de finanzas personales, ideal para:
+
+gestionar gastos básicos
+
+practicar React Native / Expo
+
+probar flujos con login simple
+
+usar un proyecto real para seguir aprendiendo
+
+Puedes modificarla y adaptarla a tus necesidades.

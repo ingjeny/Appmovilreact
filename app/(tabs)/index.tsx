@@ -8,13 +8,28 @@ import { useThemeColor } from '../../hooks/use-theme-color';
 import { BalanceCard } from '../../components/BalanceCard';
 import { MovementItem } from '../../components/MovementItem';
 import { ChartSection } from '../../components/ChartSection';
+import { useBudget } from '../../hooks/useBudget';
+import { BudgetProgressCard } from '../../components/BudgetProgressCard';
+import { ReminderList } from '../../components/ReminderList';
 
 export default function Dashboard() {
   const router = useRouter();
   const colors = useThemeColor();
   const { movements, deleteMovement, loading, refresh } = useMovements();
   const analytics = useAnalytics(movements);
+  const budget = useBudget(movements);
   const [refreshing, setRefreshing] = React.useState(false);
+  const { stats, settings, monthlyExpenses, updateReminders } = budget;
+
+  const handleToggleDaily = React.useCallback(
+    (value: boolean) => updateReminders({ remindDaily: value }),
+    [updateReminders]
+  );
+
+  const handleToggleWeekly = React.useCallback(
+    (value: boolean) => updateReminders({ remindWeeklyReview: value }),
+    [updateReminders]
+  );
 
   // Recargar datos cada vez que la pantalla gana foco
   useFocusEffect(
@@ -67,9 +82,27 @@ export default function Dashboard() {
           expenses={analytics.totalExpenses}
         />
 
+        <BudgetProgressCard
+          limit={stats.limit}
+          spent={monthlyExpenses}
+          usedPercent={stats.usedPercent}
+          remaining={stats.remaining}
+          daysLeft={stats.daysLeft}
+          recommendedPerDay={stats.recommendedPerDay}
+          nearLimit={stats.isNearLimit}
+        />
+
         {analytics.dailyExpenses.length > 0 && (
           <ChartSection data={analytics.dailyExpenses} />
         )}
+
+        <ReminderList
+          remindDaily={settings.reminders.remindDaily}
+          remindWeeklyReview={settings.reminders.remindWeeklyReview}
+          customMessages={settings.reminders.customMessages}
+          onToggleDaily={handleToggleDaily}
+          onToggleWeekly={handleToggleWeekly}
+        />
 
         <View style={styles.section}>
           <View style={styles.sectionHeader}>

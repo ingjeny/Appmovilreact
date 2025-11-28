@@ -26,7 +26,6 @@ export interface AnalyticsData {
   dailyExpenses: { date: string; amount: number }[];
 }
 
-// 🆕 Nuevos tipos para Metas
 export interface SavingsGoal {
   id: string;
   title: string;
@@ -37,4 +36,16 @@ export interface SavingsGoal {
   color: string;
   createdAt: string;
   completed: boolean;
+}
+
+export interface ReminderSettings {
+  remindDaily: boolean;
+  remindWeeklyReview: boolean;
+  customMessages: string[];
+}
+
+export interface BudgetSettings {
+  monthlyLimit: number;
+  alertThreshold: number;
+  reminders: ReminderSettings;
 }

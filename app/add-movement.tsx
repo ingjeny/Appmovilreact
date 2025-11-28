@@ -141,7 +141,7 @@ export default function AddMovementScreen() {
               styles.textInput,
               { backgroundColor: colors.card, color: colors.text },
             ]}
-            placeholder="¿En qué gastaste?"
+            placeholder="Descripcion de tu gasto o ingreso"
             placeholderTextColor={colors.textSecondary}
             value={description}
             onChangeText={setDescription}
